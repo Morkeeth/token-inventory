@@ -115,6 +115,14 @@ Save it at the path `tokens config` prints. Rules are matched against the full p
 - Shell commands are never read, so a session that only runs shell commands in another folder is placed by its working folder.
 - No invoice is fetched. What you actually paid stays outside this tool.
 
+## Not in this edition
+
+These need a person's own review and stay out of the public tool:
+
+- Labels suggested by a model for sessions with no evidence. Here, no evidence means unknown.
+- Splitting a coordinating session across the projects it served.
+- Matching Cursor usage hours to local Cursor chats.
+
 ## What it writes
 
 One folder: `~/.local/share/where-did-the-tokens-go` (or `$XDG_DATA_HOME`, or `$TOKENS_DATA`). It holds `inventory.json`, daily sums per tool, project, reason and model, and `cursor-usage.json` if you imported an export. No transcript text is copied. Delete the folder to remove everything.
