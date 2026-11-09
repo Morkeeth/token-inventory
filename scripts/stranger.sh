@@ -41,7 +41,7 @@ step "dashboard on 127.0.0.1"
 PID=$!
 trap 'kill $PID 2>/dev/null || true' EXIT
 for i in 1 2 3 4 5 6 7 8 9 10; do curl -sf "http://127.0.0.1:$PORT/" >/dev/null && break; sleep 0.5; done
-for p in / /methodology.html /METHODOLOGY.md /app.js /style.css /md.js /api/inventory; do
+for p in / /methodology.html /METHODOLOGY.md /guide.html /GUIDE.md /app.js /style.css /md.js /api/inventory; do
   code=$(curl -s -o /dev/null -w '%{http_code}' "http://127.0.0.1:$PORT$p")
   echo "$code $p"
   [ "$code" = 200 ]

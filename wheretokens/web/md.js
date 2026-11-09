@@ -42,4 +42,4 @@ function markdown(src) {
   return out.join('\n');
 }
 
-if (document.getElementById('doc')) fetch('METHODOLOGY.md').then((r) => r.text()).then((t) => { document.getElementById('doc').innerHTML = markdown(t); });
+if (document.getElementById('doc')) fetch(document.getElementById('doc').dataset.src || 'METHODOLOGY.md').then((r) => r.text()).then((t) => { document.getElementById('doc').innerHTML = markdown(t); });

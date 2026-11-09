@@ -68,8 +68,8 @@ def import_file(path, data_dir):
     if not real.lower().endswith('.csv') or not os.path.isfile(real):
         raise ValueError('give the path of the .csv file you downloaded from Cursor')
     out = read_csv(real)
-    with open(os.path.join(data_dir, FILE), 'w', encoding='utf-8') as f:
-        json.dump(out, f)
+    from .config import private_write
+    private_write(os.path.join(data_dir, FILE), out)
     return out
 
 

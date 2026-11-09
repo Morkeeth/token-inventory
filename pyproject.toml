@@ -16,6 +16,10 @@ classifiers = [
   "Environment :: Console",
 ]
 
+[project.urls]
+Homepage = "https://github.com/Morkeeth/token-inventory"
+Methodology = "https://github.com/Morkeeth/token-inventory/blob/main/METHODOLOGY.md"
+
 [project.scripts]
 tokens = "wheretokens.cli:main"
 

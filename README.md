@@ -21,7 +21,7 @@ tokens report
 tokens serve --open
 ```
 
-From a checkout of this repository: `pipx install .` or `python3 -m wheretokens serve`.
+Straight from GitHub: `pipx install git+https://github.com/Morkeeth/token-inventory`. From a checkout: `pipx install .` or `python3 -m wheretokens serve`.
 
 ## Commands
 
@@ -64,6 +64,10 @@ To place the rest, add rules. `tokens config` shows the path. Example:
 ## Methodology
 
 [METHODOLOGY.md](METHODOLOGY.md) explains exactly how tokens are counted and deduplicated, how Codex running totals are differenced, how prices apply, how projects are assigned, what unknown means, and the limits. The same text is the "How it is counted" page in the dashboard.
+
+## Questions
+
+[GUIDE.md](GUIDE.md) answers what people ask first: how to do it without installing, how to put your own projects on it, the privacy and security risks, the trade-offs, and when it will not work. The dashboard shows it as the Questions page.
 
 ## Limits
 

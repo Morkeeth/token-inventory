@@ -27,8 +27,23 @@ def variants(path):
 def data_dir():
     d = os.environ.get('TOKENS_DATA') or os.path.join(
         os.environ.get('XDG_DATA_HOME') or os.path.expanduser('~/.local/share'), APP)
-    os.makedirs(d, exist_ok=True)
+    os.makedirs(d, mode=0o700, exist_ok=True)
+    try:
+        os.chmod(d, 0o700)  # project names and spend are private: only this account may read them
+    except OSError:
+        pass
     return d
+
+
+def private_write(path, obj):
+    """Write JSON readable by this account only, atomically."""
+    import json
+    tmp = path + '.tmp'
+    fd = os.open(tmp, os.O_WRONLY | os.O_CREAT | os.O_TRUNC, 0o600)
+    with os.fdopen(fd, 'w', encoding='utf-8') as f:
+        json.dump(obj, f)
+    os.chmod(tmp, 0o600)
+    os.replace(tmp, path)
 
 
 def config_path():

@@ -7,7 +7,9 @@ cd "$REPO"
 TERMS='/Users/[a-z]|/home/[a-z]+/|morkeeth|omorke|@gmail|@proton|sk-ant-|sk-proj-|ghp_|github_pat_|AKIA[0-9A-Z]{12}|xox[bp]-|BEGIN [A-Z ]*PRIVATE KEY'
 [ -n "${LEAK_TERMS:-}" ] && TERMS="$TERMS|$LEAK_TERMS"
 FILES=$(git ls-files 2>/dev/null; git ls-files --others --exclude-standard 2>/dev/null)
-HITS=$(printf '%s\n' $FILES | grep -v -e '^LICENSE$' -e '^scripts/leak-scan.sh$' | xargs grep -n -I -i -E "$TERMS" 2>/dev/null || true)
+# The public repository address is meant to be public; it is the one allowed mention.
+HITS=$(printf '%s\n' $FILES | grep -v -e '^LICENSE$' -e '^scripts/leak-scan.sh$' | xargs grep -n -I -i -E "$TERMS" 2>/dev/null \
+  | sed -E 's#github\.com/Morkeeth/token-inventory##g' | grep -i -E "$TERMS" || true)
 if [ -n "$HITS" ]; then
   echo "LEAK SCAN FAILED:"
   echo "$HITS"

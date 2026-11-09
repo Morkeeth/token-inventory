@@ -216,7 +216,7 @@ class EndToEnd(Home):
         threading.Thread(target=httpd.serve_forever, daemon=True).start()
         base = 'http://127.0.0.1:%d' % httpd.server_address[1]
         try:
-            for page in ('/', '/methodology.html', '/METHODOLOGY.md', '/app.js', '/style.css', '/md.js'):
+            for page in ('/', '/methodology.html', '/METHODOLOGY.md', '/guide.html', '/GUIDE.md', '/app.js', '/style.css', '/md.js'):
                 with urllib.request.urlopen(base + page) as r:
                     self.assertEqual(r.status, 200, page)
             with urllib.request.urlopen(base + '/api/inventory') as r:
@@ -232,6 +232,11 @@ class EndToEnd(Home):
         finally:
             httpd.shutdown()
             httpd.server_close()
+
+    def test_data_is_readable_by_this_account_only(self):
+        _, path = scan.run()
+        self.assertEqual(os.stat(path).st_mode & 0o777, 0o600)
+        self.assertEqual(os.stat(os.path.dirname(path)).st_mode & 0o777, 0o700)
 
     def test_empty_home_is_explained(self):
         inv, _ = scan.run()
@@ -250,8 +255,9 @@ class Static(unittest.TestCase):
             if f.suffix in ('.html', '.js', '.css'):
                 self.assertIsNone(re.search(r'(src|href)=["\']https?://|fetch\(["\']https?://|@import|url\(["\']?https?://', text), f.name)
 
-    def test_methodology_copies_agree(self):
-        self.assertEqual((self.ROOT / 'METHODOLOGY.md').read_text(), (self.ROOT / 'wheretokens' / 'web' / 'METHODOLOGY.md').read_text())
+    def test_document_copies_agree(self):
+        for name in ('METHODOLOGY.md', 'GUIDE.md'):
+            self.assertEqual((self.ROOT / name).read_text(), (self.ROOT / 'wheretokens' / 'web' / name).read_text(), name)
 
 
 if __name__ == '__main__':

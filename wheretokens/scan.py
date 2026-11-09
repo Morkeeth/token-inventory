@@ -55,10 +55,7 @@ def run(days=None):
         'cells': fold(c_rows + x_rows + u_rows),
     }
     path = os.path.join(data, INVENTORY)
-    tmp = path + '.tmp'
-    with open(tmp, 'w', encoding='utf-8') as f:
-        json.dump(out, f)
-    os.replace(tmp, path)
+    config.private_write(path, out)
     return out, path
 
 
