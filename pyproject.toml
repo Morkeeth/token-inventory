@@ -1,0 +1,26 @@
+[build-system]
+requires = ["setuptools>=61"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "where-did-the-tokens-go"
+version = "0.1.0"
+description = "Count your own Claude Code, Codex and Cursor token use, locally. A terminal report and a private dashboard on localhost."
+readme = "README.md"
+license = { text = "MIT" }
+requires-python = ">=3.9"
+dependencies = []
+classifiers = [
+  "License :: OSI Approved :: MIT License",
+  "Programming Language :: Python :: 3",
+  "Environment :: Console",
+]
+
+[project.scripts]
+tokens = "wheretokens.cli:main"
+
+[tool.setuptools]
+packages = ["wheretokens"]
+
+[tool.setuptools.package-data]
+wheretokens = ["web/*"]

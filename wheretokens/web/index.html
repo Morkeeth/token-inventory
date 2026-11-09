@@ -1,0 +1,66 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Where did the tokens go</title>
+<link rel="icon" href="data:,">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<main>
+  <header class="top">
+    <h1>Where did the tokens go</h1>
+    <nav><a href="./" aria-current="page">Dashboard</a><a href="methodology.html">How it is counted</a></nav>
+    <span class="private">Runs on this machine. Nothing is uploaded.</span>
+  </header>
+
+  <section id="view" hidden>
+    <div class="head">
+      <div>
+        <p class="big"><span id="usd">$0</span><small>estimate at public list price, <span id="span">last 7 days</span>. Not what you paid.</small></p>
+        <p class="sub"><b id="tok">0</b> tokens logged · <b id="known">0%</b> of the estimate has a project</p>
+      </div>
+      <div class="controls">
+        <div class="seg" role="group" aria-label="Window">
+          <button data-days="7" aria-pressed="true">7 days</button><button data-days="30" aria-pressed="false">30 days</button><button data-days="0" aria-pressed="false">All time</button>
+        </div>
+        <button class="act" id="rescan">Rescan</button>
+      </div>
+    </div>
+
+    <div class="slab" id="slab" aria-label="Estimate by project"></div>
+    <div class="slab-key"><span>Each block is one project, widest first</span><span>Hatched: unknown, no evidence of a project</span></div>
+
+    <h2>By project</h2>
+    <p>A cost gets a project only for a stated reason. Where there is none it stays unknown, and unknown is never hidden.</p>
+    <div class="scroll"><table id="projects"><thead><tr><th>Project</th><th class="bar"></th><th class="n">Estimate</th><th class="n hide-s">Tokens</th><th class="n">Share</th></tr></thead><tbody></tbody></table></div>
+
+    <h2>By tool</h2>
+    <p>Each tool keeps its own definition of a token. Cursor has no list price here, so it adds tokens and no estimate.</p>
+    <div class="scroll"><table id="tools"><thead><tr><th>Tool</th><th class="n">Tokens</th><th class="n">Estimate</th><th class="n hide-s">No price</th><th class="n hide-s">Re-read share</th></tr></thead><tbody></tbody></table></div>
+
+    <h2>By day</h2>
+    <p>Estimate per local day, placed by each record's own timestamp.</p>
+    <div class="days" id="days"></div>
+    <div class="days-key"><span id="d0"></span><span id="d1"></span></div>
+
+    <h2>By model</h2>
+    <div class="scroll"><table id="models"><thead><tr><th>Model</th><th class="n">Tokens</th><th class="n">Estimate</th></tr></thead><tbody></tbody></table></div>
+  </section>
+
+  <section id="empty" class="empty" hidden>
+    <h2>No usage records found</h2>
+    <p>This tool reads the logs your coding agents already keep. It found none in the places below.</p>
+    <p id="looked"></p>
+    <p>Used Claude Code or Codex under another account folder? Set <code>CLAUDE_CONFIG_DIR</code> or <code>CODEX_HOME</code>, then run <code>tokens scan</code>.</p>
+  </section>
+
+  <footer class="foot">
+    <p id="meta">Reading your records…</p>
+    <p>Listens on 127.0.0.1 only. No network calls, no telemetry, no account. Your data stays in <code id="folder">your data folder</code>.</p>
+  </footer>
+</main>
+<script src="app.js"></script>
+</body>
+</html>
