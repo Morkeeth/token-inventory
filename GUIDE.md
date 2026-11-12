@@ -70,7 +70,7 @@ Risks that remain, plainly:
 | No password on the dashboard | Any program running as you on this machine can read it while `tokens serve` runs. Such a program could read your agent logs directly anyway | Stop the server with Ctrl-C when you are done |
 | Project names can be sensitive | A client or product name in a folder becomes a row on the dashboard and in the report | Rename it with a rule before you share anything |
 | Screenshots and reports | They show your spend estimate, models and project names | Check before you post. Nothing is shared unless you share it |
-| Installing a package | You run code from PyPI on a machine that holds your logs | It has no dependencies. Pin a version. The code is small enough to read |
+| Installing a package | You run code from GitHub on a machine that holds your logs | It has no dependencies. Pin a commit (`git+https://github.com/Morkeeth/token-inventory@<commit>`). The code is small enough to read |
 | Shared computers | Other accounts cannot read the inventory folder. Your agent logs keep their own permissions | Check the permissions of `~/.claude` and `~/.codex` |
 
 ## What are the trade-offs?
