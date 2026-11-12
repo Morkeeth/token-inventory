@@ -8,20 +8,30 @@ Count your own Claude Code, Codex and Cursor token use, on your own machine. Get
 
 ## Install and run
 
-```
-uvx --from where-did-the-tokens-go tokens serve --open
-```
+You need Python 3.9 or newer. The package is not on PyPI, so every command installs from this GitHub repo.
 
-or install it once:
+With [uv](https://docs.astral.sh/uv/):
 
 ```
-pipx install where-did-the-tokens-go
+uvx --from git+https://github.com/Morkeeth/token-inventory tokens serve --open
+```
+
+or install it once with pipx:
+
+```
+pipx install git+https://github.com/Morkeeth/token-inventory
 tokens scan
 tokens report
 tokens serve --open
 ```
 
-Straight from GitHub: `pipx install git+https://github.com/Morkeeth/token-inventory`. From a checkout: `pipx install .` or `python3 -m wheretokens serve`.
+No uv or pipx? Use a checkout. It needs nothing beyond Python:
+
+```
+git clone https://github.com/Morkeeth/token-inventory
+cd token-inventory
+python3 -m wheretokens serve --open
+```
 
 ## Commands
 
