@@ -238,6 +238,17 @@ class EndToEnd(Home):
         self.assertEqual(os.stat(path).st_mode & 0o777, 0o600)
         self.assertEqual(os.stat(os.path.dirname(path)).st_mode & 0o777, 0o700)
 
+    def test_unknown_row_survives_many_projects(self):
+        synth.month(self.home)
+        for n in range(16):
+            cwd = os.path.join(self.home, 'code', 'extra%d' % n)
+            os.makedirs(cwd, exist_ok=True)
+            self.write('.claude/projects/-code-extra%d/x.jsonl' % n, [synth.claude_msg(NOW - timedelta(hours=1), 'mx%d' % n, cwd)])
+        inv, _ = scan.run()
+        buf = io.StringIO()
+        cli.report(inv, 30, buf)
+        self.assertRegex(buf.getvalue(), r'\n  unknown +\$')
+
     def test_empty_home_is_explained(self):
         inv, _ = scan.run()
         self.assertEqual(inv['cells'], [])

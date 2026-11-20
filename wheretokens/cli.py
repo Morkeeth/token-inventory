@@ -61,13 +61,16 @@ def report(inv, days, out=sys.stdout):
         w('  %-26s %10s %12s%s\n' % (name, _tokens(t['tokens']), est, note))
     w('  %-26s %10s %12s\n\n' % ('All tools', _tokens(total['tokens']), _money(total['usd'])))
     w('  %-26s %12s %7s\n' % ('Project', 'Estimate', 'Share'))
-    ranked = sorted(projects.items(), key=lambda kv: (kv[0] == config.UNKNOWN, -kv[1]['usd'], -kv[1]['tokens']))
-    for name, p in ranked[:15]:
+    ranked = sorted((kv for kv in projects.items() if kv[0] != config.UNKNOWN), key=lambda kv: (-kv[1]['usd'], -kv[1]['tokens']))
+    unk = projects.get(config.UNKNOWN)
+    shown = ranked[:15] + ([(config.UNKNOWN, unk)] if unk else [])  # unknown is never cut off by the row limit
+    for name, p in shown:
+        if name == config.UNKNOWN and len(ranked) > 15:
+            w('  ... %d more in the dashboard\n' % (len(ranked) - 15))
         share = 100 * p['usd'] / total['usd'] if total['usd'] else 0
         w('  %-26s %12s %6.0f%%\n' % (name[:26], _money(p['usd']), share))
-    if len(ranked) > 15:
+    if not unk and len(ranked) > 15:
         w('  ... %d more in the dashboard\n' % (len(ranked) - 15))
-    unk = projects.get(config.UNKNOWN)
     if unk and total['usd']:
         w('\nunknown = no evidence of a project. Add a rule to place it (tokens config).\n')
 
