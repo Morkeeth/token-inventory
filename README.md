@@ -2,6 +2,10 @@
 
 Count your own Claude Code, Codex and Cursor token use, on your own machine. Get a terminal report and a private dashboard on localhost that shows which project each cost belongs to, and says **unknown** where there is no evidence.
 
+![The dashboard on invented data: four projects and a hatched unknown block](docs/dashboard.png)
+
+*Invented data from `tests/synth.py`. Your own view shows your folders.*
+
 - **Private by design.** It reads the logs your agents already keep. Nothing is uploaded. No account, no telemetry, no network calls. The dashboard listens on 127.0.0.1 only.
 - **Honest numbers.** Dollars are an estimate at public list price, never "what you paid". A model with no known price shows as "no price", never as zero. Unknown is drawn on the chart, never dropped.
 - **No config needed.** Zero dependencies beyond Python 3.9.
